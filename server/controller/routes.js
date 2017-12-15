@@ -1,5 +1,6 @@
 //importing dependencies
 var express = require('express');
+var pg = require('pg');
 //path is built into node, so you do not have to do npm install for it
 var path = require('path');
 
@@ -7,9 +8,52 @@ var path = require('path');
 //and be exported for use in another file
 var router = express.Router();
 
-//requiring our data object for later use in this file
-// var obj = require('../models/object.js');
-//
-// router.get('/', function(req,res){
-//   console.log(res)
-//   });
+var dbUrl;
+
+if(process.env.DATABASE_URL){
+	dbUrl = process.env.DATABASE_URL
+} else {
+	dbUrl = {
+		user: process.argv.POSTGRES_USER,
+		password: process.argv.POSTGRES_PASSWORD,
+		database: 'chatroom',
+		host: 'localhost',
+		port: 5432
+	}
+}
+
+var pgClient = new pg.Client(dbUrl);
+pgClient.connect();
+
+router.get('/api/room', function(req, res){
+  var query = 'SELECT roomname, active_users FROM rooms';
+  pgClient.query(query, (error,queryRes) => {
+    console.log(queryRes);
+    if(error){
+			res.json({error: error})
+		} else {
+			res.json({roomname: queryRes.rows})
+		}
+	});
+})
+
+router.get('/api/username', function(req, res){
+  var query = 'SELECT username FROM profiles';
+  pgClient.query(query, (error,queryResTwo) => {
+    console.log(queryResTwo);
+    if(error){
+			res.json({error: error})
+		} else {
+			res.json({username: queryResTwo.rows})
+		}
+	});
+})
+
+router.put('/api/add-user', function(req,res){
+	// var insertQuery = 'INSERT INTO rooms (active_users) VALUES ($1)';
+	console.log(req.body);
+});
+
+console.log("This is working!");
+
+module.exports = router;

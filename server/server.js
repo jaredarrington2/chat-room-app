@@ -18,6 +18,9 @@ app.use(bodyParser.text());
 app.use(bodyParser.json({ type: 'application/vnd.api+json'}));
 
 app.use('/', routes);
+app.get('/', function(req, res){
+  res.sendFile(path.join(__dirname, '../client/html/home.html'));
+});
 
 app.get('/chat', function(req, res){
   res.sendFile(path.join(__dirname, '../client/html/chatroom.html'));

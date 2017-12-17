@@ -6,30 +6,34 @@
 .jumbotron{
   color: #000;
   background-color: transparent !important;
-  background-image: url(../img/brushstroke.png);
+  background-image: url(../img/chattr-green.png);
   background-size: cover;
   background-position: center;
+  font-size: 100px;
+  color: orange;
+  font-weight: bolder;
 
 }
 h1{
-  font-family: 'Bungee', cursive;
+  font-family: 'Kaushan Script', cursive;
   text-align: center;
+  color: orange;
 }
 
 h2{
-  font-family: 'Raleway', sans-serif;
+  font-family: 'The Girl Next Door', cursive;
   text-align: center;
 
 }
 #messages{
-  font-family: 'Raleway', sans-serif;
+  font-family: 'The Girl Next Door', cursive;
 }
 /*
 #messages span{
   font-family: 'Kaushan Script', cursive;
   font-weight: bold;
 }*/
-form{
+/* form{
   background: #FFF;
   outline-style: solid;
   outline-width: thin;
@@ -38,8 +42,8 @@ form{
   position: fixed;
   bottom: 0;
   width: 100%;
-}
-form input{
+} */
+/* form input{
   border: 0;
   padding: 10px;
   width: 90%;
@@ -50,7 +54,7 @@ form button{
   background: #006BE0;
   border: none;
   padding: 10px;
-}
+} */
 
 li {
   text-decoration: none;

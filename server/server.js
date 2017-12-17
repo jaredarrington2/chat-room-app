@@ -13,10 +13,18 @@ app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.text());
 app.use(bodyParser.json({ type: 'application/vnd.api+json'}));
+
 app.use('/', routes);
 
-
+app.get('/room', function(req, res){
+  res.sendFile(path.join(__dirname, '../client/html/chatroom.html'));
+});
 app.get('/', function(req, res){
+  res.sendFile(path.join(__dirname, '../client/html/login.html'));
+});
+app.post('/', function(req, res){
+  console.dir(req);
+  res.jsonp(req.body);
   res.sendFile(path.join(__dirname, '../client/html/chatroom.html'));
 });
 

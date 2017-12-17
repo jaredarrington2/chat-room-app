@@ -37,21 +37,24 @@ router.get('/api/room', function(req, res){
 	});
 })
 
+
 router.get('/api/username', function(req, res){
-  var query = 'SELECT username FROM profiles';
-  pgClient.query(query, (error,queryResTwo) => {
-    console.log(queryResTwo);
-    if(error){
-			res.json({error: error})
-		} else {
-			res.json({username: queryResTwo.rows})
-		}
-	});
+  // var query = 'SELECT username FROM profiles';
+  // pgClient.query(query, (error,queryResTwo) => {
+  //   // console.log(queryResTwo);
+  //   if(error){
+	// 		res.json({error: error})
+	// 	} else {
+	// 		res.json({username: queryResTwo.rows})
+	// 	}
+	// });
+	return(req.body);
 })
 
-router.put('/api/add-user', function(req,res){
-	// var insertQuery = 'INSERT INTO rooms (active_users) VALUES ($1)';
-	console.log(req.body);
+router.post('/api/add-user', function(req,res){
+	var insertQuery = 'INSERT INTO profiles (username) VALUES ($1)';
+	pgClient.query(insertQuery, [req.body.username])
+	// console.log(req.body);
 });
 
 console.log("This is working!");

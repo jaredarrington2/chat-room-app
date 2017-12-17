@@ -1,12 +1,9 @@
 $( document ).ready(function() {
   $(function () {
     var socket = io();
-    // var username = prompt('Please enter a username:');
-    //get username to append to messages later
-    // $.ajax({
-    //   method: 'POST',
-    //
-    // })
+    // var screenname = req.body;
+
+    //get list of users and log to console.
     $.ajax({
   		method: 'GET',
   		url: '/api/username'

@@ -34,7 +34,7 @@ router.get('/chatroom-joined-:room_name', function(req, res) {
 });
 
 router.get('/api/chatrooms', (req, res) => {
-  var query = `SELECT * FROM chatrooms`;
+  var query = 'SELECT * FROM chatrooms';
   pgClient.query(query, (error, queryRes) => {
     //console.log(queryRes);
     if (error) {
@@ -50,12 +50,13 @@ router.get('/api/chatrooms', (req, res) => {
 });
 
 router.get('/api/chatrooms/:room_name', function(req, res) {
-  var songName = req.params.room_name.split("+").join(" ");
-  pgClient.query('SELECT * FROM chatrooms', function(songErr, songRes) {
-    var selectedSong = [];
-    for (var i = 0; i < songRes.rows.length; i++) {
-      if (songRes.rows[i].room_name.toLowerCase() === songName) {
-        selectedSong.push(songRes.rows[i]);
+  var roomName = req.params.room_name.split("+").join(" ");
+  pgClient.query('SELECT * FROM chatrooms', function(roomErr, roomRes) {
+    console.log(req.params)
+    var selectedRoom = [];
+    for (var i = 0; i < roomRes.rows.length; i++) {
+      if (roomRes.rows[i].room_name.toLowerCase() === roomName) {
+        selecteRoom.push(roomRes.rows[i]);
       }
     }
     res.set('Content-Type', 'text/html');
@@ -68,14 +69,14 @@ router.post('/api/create-room', function(req, res) {
   if (req.body.room_name !== '') {
     var insertQuery = 'INSERT INTO chatrooms (room_name) VALUES ($1)';
     pgClient.query(insertQuery, [req.body.room_name], (error, queryRes) => {
-      console.log(req)
+      console.log(req.body.room_name)
       if (error) {
         res.json(error)
       } else {
         res.json(queryRes)
       }
-    });
-  } else if ((req.body.name !== '' && req.body.message === '') || (req.body.name === '' && req.body.message === '')) {
+    })
+  } else if ((req.body.room_name !== '') || (req.body.room_name === '')) {
     res.json("null_message")
   }
 })

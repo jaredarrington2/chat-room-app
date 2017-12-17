@@ -26,10 +26,6 @@ io.on('connection', function(socket){
   });
 });
 
-app.post('/new', (req, res) => {
-    console.log(req.body.name);
-  })
-
 // var nsp = io.of('/my-namespace');
 // nsp.on('connection', function(socket){
 //   // console.log('someone connected');

@@ -1,5 +1,28 @@
 $(document).ready(function() {
 
+
+  $.ajax({
+    method: 'POST',
+    url: '/api/create-room',
+    dataType: 'json',
+    data: JSON.stringify(Obj),
+    contentType: 'application/json'
+  }).then(function(res) {
+    if (res === "null_message") {
+      alert("Please Enter Room Name")
+    }
+    updateChatroom();
+  });
+  $('#name-input').val("");
+
+  $.ajax({
+    method: 'POST',
+    url: '/api/create-room',
+    // src: $('#name-input').val()
+  }).then(function(yep) {
+    console.log(yep)
+  })
+
   //shows room names
   $.ajax({
     method: 'GET',
@@ -65,30 +88,20 @@ $(document).ready(function() {
 
   updateChatroom();
 
-  $('#submit-this').on('submit', function() {
-    //Adds new row to Table
-    $.ajax({
-      method: 'POST',
-      url: '/api/create-room',
-      src: $('#name-input').val()
-    }).then(function(yep) {})
-  })
+
+
+  // $('#submit-this').on('submit', function() {
+  //   //Adds new row to Table
+  //   $.ajax({
+  //     method: 'POST',
+  //     url: '/api/create-room',
+  //     src: $('#name-input').val()
+  //   }).then(function(yep) {})
+  // })
 
   var Obj = {
     name: $('#name-input').val()
   }
 
-  $.ajax({
-    method: 'POST',
-    url: '/api/create-room',
-    dataType: 'json',
-    data: JSON.stringify(Obj),
-    contentType: 'application/json'
-  }).then(function(res) {
-    if (res === "null_message") {
-      alert("Please Enter Room Name")
-    }
-    updateChatroom();
-  });
-  $('#name-input').val("");
+
 })

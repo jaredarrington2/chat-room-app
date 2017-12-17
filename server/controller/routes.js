@@ -97,7 +97,7 @@ router.get('/api/profile', (req,res) => {
     })
 });
 
-router.get('/api/sign-in', function(req, res){
+router.post('/api/sign-in', function(req, res){
     var userInfo = [];
     var query = `SELECT * FROM profiles WHERE email='${req.body.email}'`
     pgClient.query(query, (error, queryRes) => {

@@ -50,7 +50,7 @@ $( document ).ready(function() {
     	}).then(function(results){
         var username = results;
         console.log(username);
-      $('#messages').append($('<li>').text(username + ": " + msg));
+      $('#messages').append($('<li>').text('username' + ": " + msg));
       });
     });
 

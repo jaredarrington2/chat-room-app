@@ -27,7 +27,7 @@ $(document).ready(function(){
 			email: $('#sign-in-email').val(),
 			password: $('#sign-in-password').val()
 		}
-    
+
 
 		$.ajax({
 			method: 'POST',

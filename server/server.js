@@ -23,9 +23,9 @@ app.get('/', function(req, res){
   res.sendFile(path.join(__dirname, '../client/html/login.html'));
 });
 app.post('/', function(req, res){
-  console.dir(req);
-  res.jsonp(req.body);
-  res.sendFile(path.join(__dirname, '../client/html/chatroom.html'));
+  // console.dir(req);
+  // res.jsonp(req.body);
+  // res.sendFile(path.join(__dirname, '../client/html/chatroom.html'));
 });
 
 io.on('connection', function(socket){

@@ -27,6 +27,10 @@ $( document ).ready(function() {
       });
     };
     });
+    // $.ajax({
+    //   method: 'POST';
+    //   url: 'api/add-user'
+    // });
         //add message data using enter key
     $('form').submit(function(){
       socket.emit('chat message', $('#m').val());

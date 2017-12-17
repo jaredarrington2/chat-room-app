@@ -3,6 +3,7 @@ var express = require('express');
 var pg = require('pg');
 //path is built into node, so you do not have to do npm install for it
 var path = require('path');
+var html_creator = require('../helper/html_creator.js');
 
 //using a built in express function called router that can store all of our routes
 //and be exported for use in another file
@@ -56,6 +57,21 @@ router.post('/api/add-user', function(req,res){
 	pgClient.query(insertQuery, [req.body.username])
 	// console.log(req.body);
 });
+
+router.get('/api/rooms/:roomname', function(req,res){
+	var roomName = req.params.roomname.split("+").join(" ");
+	console.log(roomName);
+	// pgClient.query('SELECT * FROM rooms', function(songErr, roomRes){
+	// 	var selectedRoom = [];
+	// 	for(var i = 0; i < songRes.rows.length; i++){
+	// 		if(roomRes.rows[i].roomname.toLowerCase() === roomName){
+	// 			selectedSong.push(songRes.rows[i]);
+	// 		}
+	// 	}
+		res.set('Content-Type', 'text/html');
+		res.send(html_creator(selectedRoom[0]));
+	});
+
 
 console.log("This is working!");
 

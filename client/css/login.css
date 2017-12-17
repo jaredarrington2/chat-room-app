@@ -6,14 +6,18 @@
 .jumbotron{
   color: #000;
   background-color: transparent !important;
-  background-image: url(../img/brushstroke.png);
+  background-image: url(../img/chattr-green.png);
   background-size: cover;
   background-position: center;
+  font-size: 100px;
+  color: orange;
+  font-weight: bolder;
 
 }
 h1{
   font-family: 'Kaushan Script', cursive;
   text-align: center;
+  color: orange;
 }
 
 h2{

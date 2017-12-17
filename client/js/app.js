@@ -21,7 +21,7 @@ $( document ).ready(function() {
     //add users to the user panel
     $.ajax({
   		method: 'GET',
-  		url: '/api/chat'
+  		url: '/api/chatrooms'
   	}).then(function(res){
       console.log(res.roomname);
       //add usernames to active users panel
@@ -35,34 +35,7 @@ $( document ).ready(function() {
       });
     };
     });
-    // $.ajax({
-    //   method: 'POST';
-    //   url: 'api/add-user'
-    // });
-    $("#m").keypress((e) => {
-      if (e.which !== 13) {
-        if (_typing === false && $('#m').is(':focus')) {
-          _typing = true;
-          socket.emit('user typing', true);
-          _timeout = setTimeout(resetTyping, 3000);
-        } else {
-          clearTimeout(_timeout);
-          _timeout = setTimeout(resetTyping, 3000);
-        }
-      }
-      // socket.on('user typing', (isTyping) => {
-      //   if (isTyping === true) {
-      //     socket.broadcast.emit('user typing', $('#m').val(){
-      //       nickname: socket.username,
-      //       isTyping: true
-      //     });
-      //   } else {
-      //     socket.broadcast.emit('user typing', {
-      //       nickname: socket.username,
-      //       isTyping: false
-      //     });
-      //   };
-    });
+
 
         //add message data using enter key
     $('form').submit(function(){

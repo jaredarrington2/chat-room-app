@@ -7,12 +7,12 @@ $(document).ready(function() {
   }).then(function(results) {
     var newRow, roomnum, doorRm, user_count, xButton;
     for (var i = 0; i < results.chatrooms.length; i++) {
-      newRow = $('<tr class="song-row">')
-      joinbtn = $('<button id="joinrm" data-room_name=' + results.chatrooms[i].room_name + '>Join</button>')
+      newRow = $('<tr class="room-row">')
+      joinbtn = $('<button id="joinrm" data-roomName=' + results.chatrooms[i].roomname + '>Join</button>')
       roomnum = $('<td>');
       doorRm = $('<td>');
       user_count = $('<td>');
-      xButton = $('<button class="btn btn-danger x-button" data-id=' + results.chatrooms[i].room_name.id + '>');
+      xButton = $('<button class="btn btn-danger x-button" data-id=' + results.chatrooms[i].roomname.id + '>');
       xButton.css({
         padding: "0px 4px 0px 4px",
         float: 'right'
@@ -20,7 +20,7 @@ $(document).ready(function() {
       xButton.text("x");
 
       roomnum.text(i + 1);
-      doorRm.text(results.chatrooms[i].room_name);
+      doorRm.text(results.chatrooms[i].roomname);
       user_count.text(results.chatrooms[i].rowCount);
       newRow.append(roomnum).append(doorRm).append(user_count).append(joinbtn).append(xButton);
       $('#tbody').append(newRow)
@@ -28,8 +28,8 @@ $(document).ready(function() {
   })
 
   $(document).on('click', '#joinrm', function() {
-    var roomName = $(this).data('room_name');
-    window.location.href = '/chatroom-joined-' + roomName;
+    var roomName = $(this).data('nameOfRoom');
+    window.location.href = '/chatroom-joined-' + nameOfRoom;
   })
 });
 

@@ -76,11 +76,12 @@ router.get('/api/user/:username', function(req,res){
 	});
 
 router.get('/api/chatrooms', function(req, res) {
-  var roomName = req.params.room_name.split("+").join(" ");
+	console.log(req);
+  var nameOfRoom = req.params.roomname.split("+").join(" ");
   pgClient.query('SELECT * FROM chatrooms', function(roomErr, roomRes) {
     var selectedRoom = [];
-    for (var i = 0; i < songRes.rows.length; i++) {
-      if (roomRes.rows[i].room_name.toLowerCase() === roomName) {
+    for (var i = 0; i < roomRes.rows.length; i++) {
+      if (roomRes.rows[i].roomname.toLowerCase() === nameOfRoom) {
         selectedRoom.push(roomRes.rows[i]);
       }
     }

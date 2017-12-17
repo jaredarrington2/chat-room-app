@@ -90,6 +90,27 @@ router.get('/api/chatrooms', function(req, res) {
   });
 });
 
+router.get('/api/profile', (req,res) => {
+    pgClient.query('SELECT * FROM profiles', (error,queryResTwo) => {
+        console.log(queryResTwo.rows)
+        res.json(queryResTwo.rows);
+    })
+});
+
+router.get('/api/sign-in', function(req, res){
+    var userInfo = [];
+    var query = `SELECT * FROM profiles WHERE email='${req.body.email}'`
+    pgClient.query(query, (error, queryRes) => {
+
+        if (error){
+            res.json({error: error})
+        } else {
+            res.json({results: queryRes})
+        }
+    })
+		userInfo.push(queryRes);
+	});
+
 console.log("This is working!");
 
 module.exports = router;

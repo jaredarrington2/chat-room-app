@@ -8,6 +8,8 @@ var html_creator = require('../helper/html_creator.js');
 //using a built in express function called router that can store all of our routes
 //and be exported for use in another file
 var router = express.Router();
+var html_creator = require('../helper/html_creator.js');
+var moniker = require('moniker');
 
 var dbUrl;
 
@@ -26,18 +28,19 @@ if(process.env.DATABASE_URL){
 var pgClient = new pg.Client(dbUrl);
 pgClient.connect();
 
-router.get('/api/room', function(req, res){
-  var query = 'SELECT roomname, active_users FROM rooms';
-  pgClient.query(query, (error,queryRes) => {
-    console.log(queryRes);
-    if(error){
-			res.json({error: error})
-		} else {
-			res.json({roomname: queryRes.rows})
-		}
-	});
-})
-
+// router.get('/api/chatrooms', function(req, res){
+//   var query = 'SELECT roomname, active_users FROM rooms';
+//   pgClient.query(query, (error,queryRes) => {
+//     console.log(queryRes);
+//     if(error){
+// 			res.json({error: error})
+// 		} else {
+// 			res.json({roomname: queryRes.rows})
+// 		}
+// 	});
+// 	console.log(res.body);
+// })
+console.log('req.body');
 
 router.get('/api/username', function(req, res){
   // var query = 'SELECT username FROM profiles';
@@ -58,9 +61,9 @@ router.post('/api/add-user', function(req,res){
 	// console.log(req.body);
 });
 
-router.get('/api/rooms/:roomname', function(req,res){
-	var roomName = req.params.roomname.split("+").join(" ");
-	console.log(roomName);
+router.get('/api/user/:username', function(req,res){
+	var username = moniker.choose();
+	console.log(username);
 	// pgClient.query('SELECT * FROM rooms', function(songErr, roomRes){
 	// 	var selectedRoom = [];
 	// 	for(var i = 0; i < songRes.rows.length; i++){
@@ -69,9 +72,22 @@ router.get('/api/rooms/:roomname', function(req,res){
 	// 		}
 	// 	}
 		res.set('Content-Type', 'text/html');
-		res.send(html_creator(selectedRoom[0]));
+		res.send(html_creator(username));
 	});
 
+router.get('/api/chatrooms', function(req, res) {
+  var roomName = req.params.room_name.split("+").join(" ");
+  pgClient.query('SELECT * FROM chatrooms', function(roomErr, roomRes) {
+    var selectedRoom = [];
+    for (var i = 0; i < songRes.rows.length; i++) {
+      if (roomRes.rows[i].room_name.toLowerCase() === roomName) {
+        selectedRoom.push(roomRes.rows[i]);
+      }
+    }
+    res.set('Content-Type', 'text/html');
+    res.send(rooms_creator(selectedRoom[0]));
+  });
+});
 
 console.log("This is working!");
 

@@ -4,9 +4,12 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var pg = require('pg');
 var bodyParser = require('body-parser');
+var moniker = require('moniker');
 // var socket = io('/my-namespace');
 var path = require('path');
 var routes = require('./controller/routes.js');
+
+console.log(moniker.choose());
 
 app.use(express.static('./client'));
 app.use(bodyParser.json({limit: '50mb'}));
@@ -16,8 +19,11 @@ app.use(bodyParser.json({ type: 'application/vnd.api+json'}));
 
 app.use('/', routes);
 
-app.get('/room', function(req, res){
+app.get('/chat', function(req, res){
   res.sendFile(path.join(__dirname, '../client/html/chatroom.html'));
+});
+app.get('/rooms', function(req, res){
+  res.sendFile(path.join(__dirname, '../client/html/rooms.html'));
 });
 app.get('/', function(req, res){
   res.sendFile(path.join(__dirname, '../client/html/login.html'));
@@ -25,7 +31,7 @@ app.get('/', function(req, res){
 app.post('/', function(req, res){
   // console.dir(req);
   // res.jsonp(req.body);
-  // res.sendFile(path.join(__dirname, '../client/html/chatroom.html'));
+  res.sendFile(path.join(__dirname, '../client/html/chatroom.html'));
 });
 
 io.on('connection', function(socket){
@@ -46,6 +52,7 @@ io.on('connection', function(socket){
     io.emit('chat message', msg);
   });
 });
+
 
 
 http.listen(3000, function(){
